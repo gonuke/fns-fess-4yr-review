@@ -13,6 +13,8 @@ SOURCES = report.tex \
 
 TIDY=*.lo[fgt] *.toc *.bbl *.blg *.ist *.glo *.aux *.acn *.out
 
+default: no-cite
+
 report.pdf: ${SOURCES}
 	pdflatex report.tex
 	bibtex prod.aux
@@ -27,6 +29,7 @@ force:
 	bibtex ref.aux
 	pdflatex report.tex
 	pdflatex report.tex
+	rm -f ${TIDY}
 
 no-cite: ${SOURCES}
 	pdflatex report.tex
