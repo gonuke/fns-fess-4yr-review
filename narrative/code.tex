@@ -1,0 +1,201 @@
+\section{Development of Improved Predictive Capability}
+
+
+
+For many years, this program has supported the development of a unique
+CAD-based capability for neutron and photon transport in fusion energy
+systems, known as the \gls{DAGMC} toolkit.  As the fundamental capability for
+radiation transport is considered to be well established, a number of
+improvements were made to both the performance of the core capability, and
+larger workflows that are based on this fundamental capability.
+
+\subsection{\gls{DAGMC} Performance Improvements}
+
+Over nearly a decade of both the development of \gls{DAGMC} and its use in
+nuclear analysis, its performance has been assessed in various ways.  The
+simplest assessment is to compare the performance of native MCNP using a
+native geometry representation to the performance of DAG-MCNP using CAD
+geometry representation that is derived directly from the native
+representation.  \gls{DAGMC} has been measured to be as fast as \textapprox 3x
+slower and as slow as \textapprox 10x slower.  Notably, such a comparison is
+only possible when a native MCNP geometry representation already exists.
+Arguably, this is not the target use case for \gls{DAGMC} that is designed to
+allow analysts to avoid the person-months of effort that are required to
+generate such a complex native MCNP representation.  Nevertheless, is is a
+compelling motivator for performance improvements.  Three types of performance
+improvement have been examined and are at different stages of implementation.
+
+\glspl{SDF} seek to improve performance by pre-computing the distance to the
+nearest boundary from a grid of points within a select number of volumes of
+the geometry.  Such a grid can be used during transport to avoid an expensive
+computation of the exact distance to a boundary in any specific direction when
+it is already known that a collision will occur at a distance that is shorter
+than this precomputed nearest boundary.  If the error in the precomputed
+distance is well-enough characterized, it can be a reliable way to avoid the
+more expensive tests.
+
+A complete implementation of this capability includes tools to assess which
+volumes in a geometry will benefit from the initial computational cost and
+ongoing memory cost of precomputing and storing this information.  In
+particular, theoretical analysis has shown that the benefit is a function of
+the ratio of the mean free path of radiation transport to the mean chord
+length within the volume, with maximum benefit arising when this ratio is
+low\cite{shriwise_NET}.
+
+Testing has confirmed this behavior in real geometries, with the conclusion
+that only some volumes within a geometry benefit from this treatment.  In
+fusion energy systems, the most complex volumes are often formed from the
+implicit complement, and therefore are considered vacuums.  In such volumes,
+the mean free path is infinite, and the utility of this approach offers no
+benefit.
+
+Other ongoing improvements that began during this period are being implemented
+to address other aspects of the algorithm, including modifications to the way
+that \glspl{BVH} are constructed and traversed with the goal of achieving a
+factor of 2 or more improvement in computational performance.  \gls{BVH} tree
+construction algorithms can be adaptively selected as the tree become deeper
+to respond to the particular arrangement of triangles that are the basis for
+the tree.  In addition, cpu-level \gls{SIMD} parallelism can be used to
+traverse the trees more quickly.
+
+\subsection{\gls{SDR} Workflow Development}
+
+With tools readily available to predict the so-called prompt responses to
+neutron and photon transport throughout complex fusion energy systems during
+plasma operation, much of the fusion neutronics community has turned its
+attention to accurately predicting the radiation dose levels caused by delayed
+photons during shutdown.  This is important for understanding both the
+lifetime dose to some sensitive equipment, as well as the potential dose to
+workers during maintenance procedures.  The leading methodology for this kind
+of analysis is known as the \gls{R2S} method, because it requires two separate
+radiation transport steps, coupled through a transmutation
+calculation\cite{various_r2s}.  A fully integrated implementation of this
+workflow was implemented within the PyNE software system\cite{pyne}.
+
+The \gls{R2S} workflow starts from a single CAD-based \gls{DAGMC} geometry and
+a mesh that defines the spatial resolution of the delayed photon source.
+These are used to calculate the multi-group neutron flux on that mesh for use
+in the activation/transmutation calculation using DAG-MCNP.  The first step of
+\gls{R2S} workflow in PyNE uses the geometry and the multi-group neutron
+fluxes to automatically write an input file for ALARA to perform the
+transmutation calculation.  If the mesh is a non-conformal Cartesian mesh, a
+\gls{DAGMC}-based ray tracing method is used to determine the composite
+material composition in each mesh voxel for use by ALARA, starting from the
+same \gls{DAGMC} geometry.  If a conformal tetrahedral mesh is used, each mesh
+element is assumed to containa a single material.
+
+The second step of the \gls{R2S} workflow reads the ALARA output and generates
+a spatially distributed multi-group photon source on the same mesh that was
+used to record the neutron fluxes.  A different source mesh is generated for
+each cooling time, \emph{i.e.} time after shutdown.  A custom source sampling
+function is then able to read this mesh-based source, whether Cartesian or
+tetrahedral, in the second radiation transport calculation on the original
+\gls{DAGMC} geometry.
+
+This particular implementation is innovative in its support for conformal
+tetrahedral mesh as well as biasing schemes for efficeintly sampling the
+distributed photon source, and has been validated against the primary
+experimental data for this kind of analysis\cite{biondo_r2s}.
+
+Two ongoing improvements that began during this period are an extension to
+support moving activated sources during maintenance procedures, and a study of
+the propagation of statistical error/uncertainty through the \gls{R2S}
+workflow.
+
+\subsection{Automated Variance Reduction for \gls{SDR} Analysis}
+
+For over a decade, deterministic radiation transport methods have been used to
+determine the variance reduction parameters that allow more accurate Monte
+Carlo radiation transport calculations to provide useful answers in a
+reasonable computer time.  Although such methods are well-established for the
+prompt photons that arise during operational scenarios, the non-linear
+relationship between the neutron flux and the delayed photon source of
+\gls{R2S} problems has proven challenging.  An extension of the \gls{R2S}
+methodology was developed and implemented to overcome this challenge.
+
+The \gls{GT-CADIS} methodology extends the \gls{CADIS} methodology developed
+at \gls{ORNL} by implementing a linearization of the transmutation operator
+that can be used to couple the adjoint photon flux to the adjoint neutron
+source, thus enabling automated variance reduction for \gls{SDR} problems.
+The development of this approach required first demonstrating that such a
+linearized operator was a sufficiently accurate representation of the
+transmutation operator for such problems.  A mathetmatical derivation
+identified the \gls{SNILB} criteria which must be met for this to be correct,
+and a thorough analysis of a wide array of fusion materials over many
+irradiation conditions confirmed that such criteria are indeed met for all
+cases of interest.
+
+The \gls{GT-CADIS} methodology was studied in detail on a simplified geometry
+designed to demonstrate the benefit of this approach over other possible
+approaches for \gls{SDR} problems.  \gls{GT-CADIS} was found to offer a
+substantial speedup over the next best choice, \gls{FW-CADIS}.  A single
+octant model of a realistic fusion energy system was also used to demosntrate
+the utility of this approach.
+
+\subsection{Software Valudation with JET Operational Data}
+
+A collaboration has been established with EURATOM-JET for the neutronics
+analysis of JET.  In addition to validating the EU neutronics transport codes
+and data, the JET Project, through JET3 - DT Technology EUROfusion Consortium,
+would like to widen the scope of JET experiments by also including the
+validation of other newly developed transport codes/data used by the US.
+Specifically, the collaboration would seek to validate ADVANG, ATTILA, and
+DAG-MCNP, including the \gls{R2S} methodology that relies upon it, by using
+the experimental data to be provided by JET.
+
+Two different benchmark exercises were devised, one focusing on streaming of
+neutrons and another on the shutdown dose rate.  The former is particularly
+valuable for the validation of advanced hybrid variance reduction schemes,
+such as ADVANTG.  The other is valuable for validation of \gls{SDR}
+calculation methodologies, and particularly the \gls{R2S} methodology
+developed under this project.
+
+Because the geometric description of the JET facility is already available in
+the native MCNP text files, participating in this effort required first
+generating a \gls{CAD}-based description.  This was performed using the
+MCNP2CAD conversion tool developed in conjunction with the \gls{DAGMC}
+toolkit.  These \gls{CAD}-based models have already been used to replicate the
+streaming benchmark and are currently being used for the \gls{SDR} benchmark.
+
+\subsection{Nuclear Data for Fusion Applications}
+
+In addition to the tools and workflows described above, robust nuclear
+analysis relies on high quality nuclear and atomic data to describe the
+interactions of radiation with matter.  Under this project and its
+predecessors, we are responsible for monitoring the the development of updated
+nuclear data sets and assessing the impacts of those updates on the nuclear
+analysis outcomes for various systems.  In addition to attending meetings of
+the \gls{CSEWG} and \gls{FENDL} committees, a computational MCNP benchmark is
+used to probe the differences in data libraries as they are released.
+
+During this reporting period, the newest release of the \gls{FENDL}, version
+3, was made available.  The computational benchmark was used with the
+release of \gls{FENDL}-3, showing a modest increase of the neutron flux levels
+in the deep penetration regions and a substantial increase in the gas
+production in steel components.  The comparison to experimental results showed
+good agreement with no substantial differences between FENDL-3.0 and FENDL-2.1
+for most responses.  There is a slight trend, however, for an increase of the
+fast neutron flux in the shielding experiment and a decrease in the breeder
+mock-up experiments. The photon flux spectra measured in the bulk shield and
+the tungsten experiments are significantly better reproduced with FENDL-3.0
+data. In general, FENDL-3, as compared to FENDL-2.1, shows an improved
+performance for fusion neutronics applications. It is thus recommended to ITER
+to replace FENDL-2.1 as reference data library for neutronics calculation by
+FENDL-3.0.\cite{fischer_benchmarking_2014, bohm_impact_2015}
+
+In addition to these routine tasks, recent work has also begun investigating
+how neutronics results depend on the modeled temperature of various
+components.  While most systems are modeled at room temperature, the elevated
+temperatures of fusion energy systems during normal operation will impact the
+results in three distinct ways: (1) reducecd density of materials, (2) Doppler
+broadening of cross-sections, and (3) closing of gaps due to thermal
+expansion.  Analysis of these effects shows that the Doppler broadening has a
+small impact (<1-3\%) on results in fusion energy system, while gap closing
+and density reduction can have important effects (4-25\%).
+
+
+%% Technology/Materials
+%%   Sawan paper on comparison of nuclear parameters in MFE,IFE, HFIR?
+%% Waste 
+
+
