@@ -1,29 +1,40 @@
 \section{Development of Improved Predictive Capability}
 
-
-
-For many years, this program has supported the development of a unique
-CAD-based capability for neutron and photon transport in fusion energy
-systems, known as the \gls{DAGMC} toolkit.  As the fundamental capability for
-radiation transport is considered to be well established, a number of
-improvements were made to both the performance of the core capability, and
-larger workflows that are based on this fundamental capability.
+The objective of this task is to provide software tools that support the
+detailed nuclear design and analysis of fusion energy systems, with a
+particular focus on detailed geometry representation.  The nuclear performance
+of fusion energy systems is driven by detailed geometric considerations.  Gaps
+and ports in the \gls{FW/B} system contribute to local heating and radiation
+damage in the vacuum vessel, magnets and beyond, while also reducing the
+overall tritium breeding ratio.  Prior to this performance period, this
+program supported the development of a unique CAD-based capability for neutron
+and photon transport in fusion energy systems, known as the \gls{DAGMC}
+toolkit.  As the fundamental capability for radiation transport is considered
+to be well established, effort during this performance period focused on
+improving the computational performance of \gls{DAGMC}, extending its utility
+beyond operational radiation transport to include shutdown dose rate
+assessment, and validation of these methods through a new collaboration with
+EU-JET.
 
 \subsection{\gls{DAGMC} Performance Improvements}
 
-Over nearly a decade of both the development of \gls{DAGMC} and its use in
+The objective of this subtask is to improve the computational performance of
+the \gls{DAGMC} toolkit such that its performance is comparable to alternative
+approaches.
+
+Over more than 6 years of both the development of \gls{DAGMC} and its use in
 nuclear analysis, its performance has been assessed in various ways.  The
 simplest assessment is to compare the performance of native MCNP using a
 native geometry representation to the performance of DAG-MCNP using CAD
 geometry representation that is derived directly from the native
-representation.  \gls{DAGMC} has been measured to be as fast as \textapprox 3x
-slower and as slow as \textapprox 10x slower.  Notably, such a comparison is
-only possible when a native MCNP geometry representation already exists.
-Arguably, this is not the target use case for \gls{DAGMC} that is designed to
-allow analysts to avoid the person-months of effort that are required to
-generate such a complex native MCNP representation.  Nevertheless, is is a
-compelling motivator for performance improvements.  Three types of performance
-improvement have been examined and are at different stages of implementation.
+representation.  \gls{DAGMC} has been measured to be between \textapprox 3x
+and \textapprox 10x slower.  Since such a comparison is only possible when a
+native MCNP geometry representation already exists, this is arguably not the
+ideal use case for \gls{DAGMC}. It is designed to allow analysts to avoid the
+person-months of effort that are required to generate such a complex native
+MCNP representation.  Nevertheless, is is a compelling motivator for
+performance improvements.  Three types of performance improvement have been
+examined and are at different stages of implementation.
 
 \glspl{SDF} seek to improve performance by pre-computing the distance to the
 nearest boundary from a grid of points within a select number of volumes of
@@ -49,26 +60,40 @@ implicit complement, and therefore are considered vacuums.  In such volumes,
 the mean free path is infinite, and the utility of this approach offers no
 benefit.
 
-Other ongoing improvements that began during this period are being implemented
-to address other aspects of the algorithm, including modifications to the way
-that \glspl{BVH} are constructed and traversed with the goal of achieving a
-factor of 2 or more improvement in computational performance.  \gls{BVH} tree
-construction algorithms can be adaptively selected as the tree become deeper
-to respond to the particular arrangement of triangles that are the basis for
-the tree.  In addition, cpu-level \gls{SIMD} parallelism can be used to
-traverse the trees more quickly.
+Other ongoing improvements began during this period to address other aspects
+of the algorithm, including modifications to the way that \glspl{BVH} are
+constructed and traversed with the goal of achieving a factor of 2 or more
+improvement in computational performance.  \gls{BVH} tree construction
+algorithms can be adaptively selected as the tree become deeper to respond to
+the particular arrangement of triangles that are the basis for the tree.  In
+addition, cpu-level \gls{SIMD} parallelism can be used to traverse the trees
+more quickly.  Both of these improvements have been implemented and testing is
+underway to demonstrate their effectiveness, with final results expected in
+summer 2018.
 
 \subsection{\gls{SDR} Workflow Development}
 
-With tools readily available to predict the so-called prompt responses to
-neutron and photon transport throughout complex fusion energy systems during
-plasma operation, much of the fusion neutronics community has turned its
-attention to accurately predicting the radiation dose levels caused by delayed
-photons during shutdown.  This is important for understanding both the
-lifetime dose to some sensitive equipment, as well as the potential dose to
-workers during maintenance procedures.  The leading methodology for this kind
-of analysis is known as the \gls{R2S} method, because it requires two separate
-radiation transport steps, coupled through a transmutation
+\begin{wrapfigure}{R}{0.5\textwidth}
+\centering
+\includegraphics[width=0.48\textwidth]{imgs/r2s-validation.png}
+\caption{\label{fig:r2s-validation}Ratio of calculated (C) dose rates to
+  experimental (E) dose rates for different configurations of PyNE R2S,
+  compared to other reported results.}
+\end{wrapfigure}
+
+The objective of this subtask is to provide a robust computational workflow
+for predicting the dose rate in a fusion energy system during shutdown
+periods, due to neutron activation of components.
+
+With tools readily available to predict nulear responses to neutron and photon
+transport throughout complex fusion energy systems during plasma operation,
+much of the fusion neutronics community has turned its attention to accurately
+predicting the radiation dose levels caused by delayed photons during
+shutdown.  This is important for understanding both the lifetime dose to some
+sensitive equipment, as well as the potential dose to workers during
+maintenance procedures.  The leading methodology for this kind of analysis is
+known as the \gls{R2S} method, because it requires two separate radiation
+transport steps, coupled through a transmutation
 calculation\cite{various_r2s}.  A fully integrated implementation of this
 workflow was implemented within the PyNE software system\cite{pyne}.
 
@@ -104,6 +129,17 @@ workflow.
 
 \subsection{Automated Variance Reduction for \gls{SDR} Analysis}
 
+\begin{wrapfigure}{R}{0.5\textwidth}
+\centering
+\includegraphics[width=0.48\textwidth]{imgs/gt-cadis-timing.png}
+\caption{\label{fig:gt-cadis-timing}Performance benefit of \gls{GT-CADIS}
+  compared to \gls{FW-CADIS} and analog simulation.}
+\end{wrapfigure}
+
+The objective of this subtask is to develop and demonstrate novel mathematical
+approaches that will dramatically increase the statistical convergence rate of
+\gls{R2S} simulations.
+
 For over a decade, deterministic radiation transport methods have been used to
 determine the variance reduction parameters that allow more accurate Monte
 Carlo radiation transport calculations to provide useful answers in a
@@ -112,6 +148,13 @@ prompt photons that arise during operational scenarios, the non-linear
 relationship between the neutron flux and the delayed photon source of
 \gls{R2S} problems has proven challenging.  An extension of the \gls{R2S}
 methodology was developed and implemented to overcome this challenge.
+
+\begin{wrapfigure}{R}{0.5\textwidth}
+\centering
+\includegraphics[width=0.48\textwidth]{imgs/jet-streaming-benchmark.png}
+\caption{\label{fig:jet-streaming-benchmark}Ratio of DAG-MCNP to MCNP results
+  along streaming path in JET model.}
+\end{wrapfigure}
 
 The \gls{GT-CADIS} methodology extends the \gls{CADIS} methodology developed
 at \gls{ORNL} by implementing a linearization of the transmutation operator
@@ -128,11 +171,14 @@ cases of interest.
 The \gls{GT-CADIS} methodology was studied in detail on a simplified geometry
 designed to demonstrate the benefit of this approach over other possible
 approaches for \gls{SDR} problems.  \gls{GT-CADIS} was found to offer a
-substantial speedup over the next best choice, \gls{FW-CADIS}.  A single
-octant model of a realistic fusion energy system was also used to demosntrate
-the utility of this approach.
+substantial speedup over the next best choice, \gls{FW-CADIS}
+(Fig.\ \ref{fig:gt-cadis-timing}).  A single octant model of a realistic fusion
+energy system was also used to demonstrate the utility of this approach.
 
 \subsection{Software Valudation with JET Operational Data}
+
+The objective of this subtask is to extend the validation basis of \gls{DAGMC}
+and the PyNE \gls{R2S} workflow by comparison to additional experimental data.
 
 A collaboration has been established with EURATOM-JET for the neutronics
 analysis of JET.  In addition to validating the EU neutronics transport codes
@@ -155,9 +201,14 @@ the native MCNP text files, participating in this effort required first
 generating a \gls{CAD}-based description.  This was performed using the
 MCNP2CAD conversion tool developed in conjunction with the \gls{DAGMC}
 toolkit.  These \gls{CAD}-based models have already been used to replicate the
-streaming benchmark and are currently being used for the \gls{SDR} benchmark.
+streaming benchmark (Fig.\ \ref{fig:jet-streaming-benchmark} and are currently
+being used for the \gls{SDR} benchmark.
 
 \subsection{Nuclear Data for Fusion Applications}
+
+The objective of this subtask is to understand the implications of changes in
+available best-estimate nuclear data on the analysis and design of fusion
+energy systems.
 
 In addition to the tools and workflows described above, robust nuclear
 analysis relies on high quality nuclear and atomic data to describe the
@@ -167,6 +218,13 @@ nuclear data sets and assessing the impacts of those updates on the nuclear
 analysis outcomes for various systems.  In addition to attending meetings of
 the \gls{CSEWG} and \gls{FENDL} committees, a computational MCNP benchmark is
 used to probe the differences in data libraries as they are released.
+
+\begin{wrapfigure}{L}{0.65\textwidth}
+\centering
+\includegraphics[width=0.63\textwidth]{imgs/fendl3.png}
+\caption{\label{fig:jet-streaming-benchmark}Ratio of DAG-MCNP to MCNP results
+  along streaming path in JET model.}
+\end{wrapfigure}
 
 During this reporting period, the newest release of the \gls{FENDL}, version
 3, was made available.  The computational benchmark was used with the
@@ -188,14 +246,26 @@ how neutronics results depend on the modeled temperature of various
 components.  While most systems are modeled at room temperature, the elevated
 temperatures of fusion energy systems during normal operation will impact the
 results in three distinct ways: (1) reducecd density of materials, (2) Doppler
-broadening of cross-sections, and (3) closing of gaps due to thermal
+broadening of nuclear cross-sections, and (3) closing of gaps due to thermal
 expansion.  Analysis of these effects shows that the Doppler broadening has a
 small impact (<1-3\%) on results in fusion energy system, while gap closing
 and density reduction can have important effects (4-25\%).
 
+\subsection{Summary}
 
-%% Technology/Materials
-%%   Sawan paper on comparison of nuclear parameters in MFE,IFE, HFIR?
-%% Waste 
+Overall, this task comprises a comprehensive effort to improve and extend the
+available software tools for predictive nuclear analysis of fusion energy
+systems.  Novel mathematical and computational approaches are developed to
+both improve the performance of existing capability and extend the range of
+problems that can be tackled.  Validation is integrated into the development
+process using newly available experimental data.
 
+In addition to being used by \gls{UW-FTI} in the Fusion Energy Systems Studies
+task described in the next section, this software capability has been used for
+analysis of ITER in support of component design and \gls{SDR} throughout the
+tokamak building.  A number of private companies with interest in fusion
+energy systems have acquired the software and been trained to use it for a
+range of analysis tasks.  Interest has extended also beyond the fusion
+neutronics community, with deployment by and training of nuclear analysis and
+radiation transport experts at \gls{SNS}, CERN and NASA.
 
