@@ -41,13 +41,13 @@ nearest boundary from a grid of points within a select number of volumes of
 the geometry.  Such a grid can be used during transport to avoid an expensive
 computation of the exact distance to a boundary in any specific direction when
 it is already known that a collision will occur at a distance that is shorter
-than this precomputed nearest boundary.  If the error in the precomputed
+than this pre-computed nearest boundary.  If the error in the pre-computed
 distance is well-enough characterized, it can be a reliable way to avoid the
 more expensive tests.
 
 A complete implementation of this capability includes tools to assess which
 volumes in a geometry will benefit from the initial computational cost and
-ongoing memory cost of precomputing and storing this information.  In
+ongoing memory cost of pre-computing and storing this information.  In
 particular, theoretical analysis has shown that the benefit is a function of
 the ratio of the mean free path of radiation transport to the mean chord
 length within the volume, with maximum benefit arising when this ratio is
@@ -85,7 +85,7 @@ The objective of this subtask is to provide a robust computational workflow
 for predicting the dose rate in a fusion energy system during shutdown
 periods, due to neutron activation of components.
 
-With tools readily available to predict nulear responses to neutron and photon
+With tools readily available to predict nuclear responses to neutron and photon
 transport throughout complex fusion energy systems during plasma operation,
 much of the fusion neutronics community has turned its attention to accurately
 predicting the radiation dose levels caused by delayed photons during
@@ -107,7 +107,7 @@ transmutation calculation.  If the mesh is a non-conformal Cartesian mesh, a
 \gls{DAGMC}-based ray tracing method is used to determine the composite
 material composition in each mesh voxel for use by ALARA, starting from the
 same \gls{DAGMC} geometry.  If a conformal tetrahedral mesh is used, each mesh
-element is assumed to containa a single material.
+element is assumed to contain a single material.
 
 The second step of the \gls{R2S} workflow reads the ALARA output and generates
 a spatially distributed multi-group photon source on the same mesh that was
@@ -118,7 +118,7 @@ tetrahedral, in the second radiation transport calculation on the original
 \gls{DAGMC} geometry.
 
 This particular implementation is innovative in its support for conformal
-tetrahedral mesh as well as biasing schemes for efficeintly sampling the
+tetrahedral mesh as well as biasing schemes for efficiently sampling the
 distributed photon source, and has been validated against the primary
 experimental data for this kind of analysis\cite{biondo_r2s}.
 
@@ -162,7 +162,7 @@ that can be used to couple the adjoint photon flux to the adjoint neutron
 source, thus enabling automated variance reduction for \gls{SDR} problems.
 The development of this approach required first demonstrating that such a
 linearized operator was a sufficiently accurate representation of the
-transmutation operator for such problems.  A mathetmatical derivation
+transmutation operator for such problems.  A mathematical derivation
 identified the \gls{SNILB} criteria which must be met for this to be correct,
 and a thorough analysis of a wide array of fusion materials over many
 irradiation conditions confirmed that such criteria are indeed met for all
@@ -175,7 +175,7 @@ substantial speedup over the next best choice, \gls{FW-CADIS}
 (Fig.\ \ref{fig:gt-cadis-timing}).  A single octant model of a realistic fusion
 energy system was also used to demonstrate the utility of this approach.
 
-\subsection{Software Valudation with JET Operational Data}
+\subsection{Software Validation with JET Operational Data}
 
 The objective of this subtask is to extend the validation basis of \gls{DAGMC}
 and the PyNE \gls{R2S} workflow by comparison to additional experimental data.
@@ -185,7 +185,7 @@ analysis of JET.  In addition to validating the EU neutronics transport codes
 and data, the JET Project, through JET3 - DT Technology EUROfusion Consortium,
 would like to widen the scope of JET experiments by also including the
 validation of other newly developed transport codes/data used by the US.
-Specifically, the collaboration would seek to validate ADVANG, ATTILA, and
+Specifically, the collaboration would seek to validate ADVANTG, ATTILA, and
 DAG-MCNP, including the \gls{R2S} methodology that relies upon it, by using
 the experimental data to be provided by JET.
 
@@ -245,7 +245,7 @@ In addition to these routine tasks, recent work has also begun investigating
 how neutronics results depend on the modeled temperature of various
 components.  While most systems are modeled at room temperature, the elevated
 temperatures of fusion energy systems during normal operation will impact the
-results in three distinct ways: (1) reducecd density of materials, (2) Doppler
+results in three distinct ways: (1) reduced density of materials, (2) Doppler
 broadening of nuclear cross-sections, and (3) closing of gaps due to thermal
 expansion.  Analysis of these effects shows that the Doppler broadening has a
 small impact ($<$1-3\%) on results in fusion energy system, while gap closing
