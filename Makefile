@@ -18,14 +18,20 @@ default: report.pdf
 report.pdf: ${SOURCES}
 	pdflatex report.tex
 	bibtex ref.aux
-	bibtex prod.aux
+	bibtex articles.aux
+	bibtex theses.aux
+	bibtex software.aux
+	bibtex presents.aux
 	pdflatex report.tex
 	pdflatex report.tex
 
 force:
 	pdflatex report.tex
 	bibtex ref.aux
-	bibtex prod.aux
+	bibtex articles.aux
+	bibtex theses.aux
+	bibtex software.aux
+	bibtex presents.aux
 	pdflatex report.tex
 	pdflatex report.tex
 
