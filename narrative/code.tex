@@ -1,20 +1,20 @@
 \section{Development of Improved Predictive Capability}
 
-The objective of this task is to provide software tools that support the
-detailed nuclear design and analysis of fusion energy systems, with a
+The  objective of  this task  is to  provide software  tools that  support the
+detailed  nuclear  design  and  analysis  of fusion  energy  systems,  with  a
 particular focus on detailed geometry representation.  The nuclear performance
 of fusion energy systems is driven by detailed geometric considerations.  Gaps
-and ports in the \gls{FW/B} system contribute to local heating and radiation
-damage in the vacuum vessel, magnets and beyond, while also reducing the
-overall tritium breeding ratio.  Prior to this performance period, this
+and ports in  the \gls{FW/B} system contribute to local  heating and radiation
+damage  in the  vacuum vessel,  magnets and  beyond, while  also reducing  the
+overall  tritium  breeding ratio.   Prior  to  this performance  period,  this
 program supported the development of a unique CAD-based capability for neutron
-and photon transport in fusion energy systems, known as the \gls{DAGMC}
-toolkit.\cite{DAGMC}  As the fundamental capability for radiation transport is
-considered to be well established, effort during this performance period
-focused on improving the computational performance of \gls{DAGMC}, extending
-its utility beyond operational radiation transport to include shutdown dose
-rate assessment, and validation of these methods through a new collaboration
-with EU-JET.
+and  photon transport  in  fusion  energy systems,  known  as the  \gls{DAGMC}
+toolkit.\citeref{wilson_acceleration_2010}  As  the fundamental  capability  for
+radiation transport is  considered to be well established,  effort during this
+performance  period  focused on  improving  the  computational performance  of
+\gls{DAGMC}, extending  its utility beyond operational  radiation transport to
+include shutdown dose rate assessment, and validation of these methods through
+a new collaboration with EU-JET.
 
 \subsection{\gls{DAGMC} Performance Improvements}
 
@@ -50,7 +50,7 @@ more expensive tests.
 \includegraphics[width=0.48\textwidth]{imgs/sdf-best-case.png}
 \caption{\label{fig:sdf-best-case}Performance benefit of \gls{SDF} in an ideal
   case of a 5 MeV neutron point source of neutrons at the center of a 10 cm
-  sphere.\cite{shriwise_NET}}
+  sphere.\citeref{shriwise_particle_2017}}
 \end{wrapfigure}
 
 A complete implementation of this capability includes tools to assess which
@@ -59,7 +59,7 @@ ongoing memory cost of pre-computing and storing this information.  In
 particular, theoretical analysis has shown that the benefit is a function of
 the ratio of the mean free path of radiation transport to the mean chord
 length within the volume, with maximum benefit arising when this ratio is
-low.\cite{shriwise_NET}
+low.\citeref{shriwise_particle_2017}
 
 Testing has confirmed this behavior in real geometries, with the conclusion
 that only some volumes within a geometry benefit from this treatment.  In
@@ -75,9 +75,9 @@ improvement in computational performance.  \gls{BVH} tree construction
 algorithms can be adaptively selected as the tree become deeper to respond to
 the particular arrangement of triangles that are the basis for the tree.  In
 addition, cpu-level \gls{SIMD} parallelism can be used to traverse the trees
-more quickly.\cite{embree}  Both of these improvements have been implemented
-and testing is underway to demonstrate their effectiveness, with final results
-expected in summer 2018.
+more quickly.\citeref{wald_embree:_2014} Both of these improvements have been
+implemented and testing is underway to demonstrate their effectiveness, with
+final results expected in summer 2018.
 
 \subsection{\gls{SDR} Workflow Development}
 
@@ -97,26 +97,27 @@ With tools readily available to predict nuclear responses to neutron and
 photon transport throughout complex fusion energy systems during plasma
 operation, much of the fusion neutronics community has turned its attention to
 accurately predicting the radiation dose levels caused by delayed photons
-during shutdown.\cite{r2smesh,r2sccfe}  This is important for understanding
-both the lifetime dose to some sensitive equipment, as well as the potential
-dose to workers during maintenance procedures.  The leading methodology for
-this kind of analysis is known as the \gls{R2S} method, because it requires
-two separate radiation transport steps, coupled through a transmutation
-calculation.\cite{various_r2s}  A fully integrated implementation of this
-workflow was implemented within the PyNE software
-system.\cite{pyne,pyne_r2s}
+during shutdown.  This is important for understanding both the lifetime dose
+to some sensitive equipment, as well as the potential dose to workers during
+maintenance procedures.  The leading methodology for this kind of analysis is
+known as the \gls{R2S} method, because it requires two separate radiation
+transport steps, coupled through a transmutation
+calculation.\citeref{chen_rigorous_2002,pereslavtsev_novel_2013,davis_benchmarking_2010}
+A fully integrated implementation of this workflow was implemented within the
+PyNE software system.\citeref{scopatz_pyne_2014,biondo_rigorous_2015}
 
 The \gls{R2S} workflow starts from a single CAD-based \gls{DAGMC} geometry and
 a mesh that defines the spatial resolution of the delayed photon source.
 These are used to calculate the multi-group neutron flux on that mesh for use
 in the activation/transmutation calculation using DAG-MCNP.  The first step of
 \gls{R2S} workflow in PyNE uses the geometry and the multi-group neutron
-fluxes to automatically write an input file for ALARA\cite{alara} to perform
-the transmutation calculation.  If the mesh is a non-conformal Cartesian mesh,
-a \gls{DAGMC}-based ray tracing method is used to determine the composite
-material composition in each mesh voxel for use by ALARA, starting from the
-same \gls{DAGMC} geometry.  If a conformal tetrahedral mesh is used, each mesh
-element is assumed to contain a single material.
+fluxes to automatically write an input file for
+ALARA\citeref{wilson_validation_1998} to perform the transmutation calculation.
+If the mesh is a non-conformal Cartesian mesh, a \gls{DAGMC}-based ray tracing
+method is used to determine the composite material composition in each mesh
+voxel for use by ALARA, starting from the same \gls{DAGMC} geometry.  If a
+conformal tetrahedral mesh is used, each mesh element is assumed to contain a
+single material.
 
 The second step of the \gls{R2S} workflow reads the ALARA output and generates
 a spatially distributed multi-group photon source on the same mesh that was
@@ -129,12 +130,12 @@ tetrahedral, in the second radiation transport calculation on the original
 This particular implementation is innovative in its support for conformal
 tetrahedral mesh as well as biasing schemes for efficiently sampling the
 distributed photon source, and has been validated against the primary
-experimental data for this kind of analysis.\cite{biondo_r2s}
+experimental data for this kind of analysis.\citeref{biondo_shutdown_2016}
 
 Two ongoing improvements that began during this period are an extension to
 support moving activated sources during maintenance procedures, and a study of
 the propagation of statistical error/uncertainty through the \gls{R2S}
-workflow.\cite{harb_constructed}
+workflow.\citeref{harb_effect_2017}
 
 \subsection{Automated Variance Reduction for \gls{SDR} Analysis}
 
@@ -142,7 +143,7 @@ workflow.\cite{harb_constructed}
 \centering
 \includegraphics[width=0.48\textwidth]{imgs/gt-cadis-timing.png}
 \caption{\label{fig:gt-cadis-timing}Performance benefit of \gls{GT-CADIS}
-  compared to \gls{FW-CADIS} and analog simulation.\cite{biondo_gtcadis}}
+  compared to \gls{FW-CADIS} and analog simulation.\citeref{biondo_transmutation_2017}}
 \end{wrapfigure}
 
 The objective of this subtask is to develop and demonstrate novel mathematical
@@ -157,13 +158,6 @@ prompt photons that arise during operational scenarios, the non-linear
 relationship between the neutron flux and the delayed photon source of
 \gls{R2S} problems has proven challenging.  An extension of the \gls{R2S}
 methodology was developed and implemented to overcome this challenge.
-
-\begin{wrapfigure}{R}{0.5\textwidth}
-\centering
-\includegraphics[width=0.48\textwidth]{imgs/jet-streaming-benchmark.png}
-\caption{\label{fig:jet-streaming-benchmark}Ratio of DAG-MCNP to MCNP results
-  along streaming path in JET model.}
-\end{wrapfigure}
 
 The \gls{GT-CADIS} methodology extends the \gls{CADIS} methodology developed
 at \gls{ORNL} by implementing a linearization of the transmutation operator
@@ -181,9 +175,9 @@ The \gls{GT-CADIS} methodology was studied in detail on a simplified geometry
 designed to demonstrate the benefit of this approach over other possible
 approaches for \gls{SDR} problems.  \gls{GT-CADIS} was found to offer a
 substantial speedup over the next best choice, \gls{FW-CADIS}
-(Fig.\ \ref{fig:gt-cadis-timing}).\cite{biondo_gtcadis} A single octant model
+(Fig.\ \ref{fig:gt-cadis-timing}).\citeref{biondo_transmutation_2017} A single octant model
 of a realistic fusion energy system was also used to demonstrate the utility
-of this approach.\cite{biondo_thesis}
+of this approach.\citeref{biondo_hybrid_2016}
 
 \subsection{Software Validation with JET Operational Data}
 
@@ -206,6 +200,13 @@ such as ADVANTG.  The other is valuable for validation of \gls{SDR}
 calculation methodologies, and particularly the \gls{R2S} methodology
 developed under this project.
 
+\begin{wrapfigure}{R}{0.5\textwidth}
+\centering
+\includegraphics[width=0.48\textwidth]{imgs/jet-streaming-benchmark.png}
+\caption{\label{fig:jet-streaming-benchmark}Ratio of DAG-MCNP to MCNP results
+  along streaming path in JET model.}
+\end{wrapfigure}
+
 Because the geometric description of the JET facility is already available in
 the native MCNP text files, participating in this effort required first
 generating a \gls{CAD}-based description.  This was performed using the
@@ -215,13 +216,6 @@ streaming benchmark (Fig.\ \ref{fig:jet-streaming-benchmark} and are currently
 being used for the \gls{SDR} benchmark.
 
 \subsection{Nuclear Data for Fusion Applications}
-
-\begin{wrapfigure}{L}{0.65\textwidth}
-\centering
-\includegraphics[width=0.63\textwidth]{imgs/fendl3.png}
-\caption{\label{fig:jet-streaming-benchmark}Impact of FENDL-3.1 library on
-  nuclear responses in computational benchmark problem.}
-\end{wrapfigure}
 
 The objective of this subtask is to understand the implications of changes in
 available best-estimate nuclear data on the analysis and design of fusion
@@ -236,20 +230,28 @@ analysis outcomes for various systems.  In addition to attending meetings of
 the \gls{CSEWG} and \gls{FENDL} committees, a computational MCNP benchmark is
 used to probe the differences in data libraries as they are released.
 
+\begin{wrapfigure}{R}{0.65\textwidth}
+\centering
+\includegraphics[width=0.63\textwidth]{imgs/fendl3.png}
+\caption{\label{fig:fendl3_impact}Impact of FENDL-3.1 library on
+  nuclear responses in computational benchmark problem.}
+\end{wrapfigure}
+
 During this reporting period, the newest release of the \gls{FENDL}, version
-3, was made available.  The computational benchmark was used with the
-release of \gls{FENDL}-3, showing a modest increase of the neutron flux levels
-in the deep penetration regions and a substantial increase in the gas
-production in steel components.  The comparison to experimental results showed
-good agreement with no substantial differences between FENDL-3.0 and FENDL-2.1
-for most responses.  There is a slight trend, however, for an increase of the
-fast neutron flux in the shielding experiment and a decrease in the breeder
-mock-up experiments. The photon flux spectra measured in the bulk shield and
-the tungsten experiments are significantly better reproduced with FENDL-3.0
-data. In general, FENDL-3, as compared to FENDL-2.1, shows an improved
-performance for fusion neutronics applications. It is thus recommended to ITER
-to replace FENDL-2.1 as reference data library for neutronics calculation by
-FENDL-3.0.\cite{fischer_benchmarking_2014, bohm_impact_2015}
+3, was made available.  The computational benchmark was used with the release
+of \gls{FENDL}-3, showing a modest increase of the neutron flux levels in the
+deep penetration regions and a substantial increase in the gas production in
+steel components.  The comparison to experimental results showed good
+agreement with no substantial differences between FENDL-3.0 and FENDL-2.1 for
+most responses (see Fig.\ \ref{fig:fendl3_impact}).  There is a slight trend,
+however, for an increase of the fast neutron flux in the shielding experiment
+and a decrease in the breeder mock-up experiments. The photon flux spectra
+measured in the bulk shield and the tungsten experiments are significantly
+better reproduced with FENDL-3.0 data. In general, FENDL-3, as compared to
+FENDL-2.1, shows an improved performance for fusion neutronics
+applications. It is thus recommended to ITER to replace FENDL-2.1 as reference
+data library for neutronics calculation by
+FENDL-3.0.\citeref{fischer_benchmarking_2014, bohm_impact_2015}
 
 In addition to these routine tasks, recent work has also begun investigating
 how neutronics results depend on the modeled temperature of various

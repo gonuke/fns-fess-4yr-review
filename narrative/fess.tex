@@ -26,7 +26,7 @@ performance, and inform the development of 3-D CAD models for additional
 analysis.
 
 During this performance period, \gls{UW-FTI} delivered the initial
-radial/vertical builds for ARIES=ACT-2 and \gls{FNSF} that were the basis of
+radial/vertical builds for ARIES-ACT-2 and \gls{FNSF} that were the basis of
 all subsequent analysis.
 
 \begin{wrapfigure}{R}{0.5\textwidth}
@@ -73,9 +73,9 @@ design scoping analysis.  The introduction of heterogeneities and gaps can
 have dramatic impact on the local values of those responses even if when it
 does not change the average values.  Streaming analysis in ARIES-ACT-1 found
 that the damage rates in the inboard structural ring would require replacement
-during the lifetime of the system (>200 dpa), but that the both the inboard
+during the lifetime of the system ($>$200 dpa), but that the both the inboard
 and outboard vacuum vessel would survive the entire lifetime of the machine,
-although the inboard would not be reweldable.
+although the inboard would not be reweldable.\citeref{el-guebaly_neutronics_2015}
 
 During this reporting period, a new form of 3-D analysis was implemented to
 study the incremental effect of different design elements on the overall
@@ -87,12 +87,20 @@ that arises when introducing the realistic heterogeneity of the 3-D structures
 that exist within and between components.  Second, it is useful to know how
 much degradation in the \gls{TBR} arises from the introduction of each port in
 the \gls{FW/B} system.  Fig.\ \ref{fig:aries-act-2-tbr} shows the degradation
-in overall \gls{TBR}, in a progression from a fully homogenized inboard and
-outboard model to a fully heterogeneous model of many steps.  The final step
-shows the impact of penetrations by a simple approximation based on scaling
-the first wall area.  A similar analysis on FNSF used full 3-D models to show
-similar effects for both penetrations and the addition of the test module
-ports.
+in overall \gls{TBR} in ARIES-ACT-2, in a progression from a fully homogenized
+inboard and outboard model to a fully heterogeneous model of many
+steps.\citeref{el-guebaly_design_2017} The final step shows the impact of penetrations by a
+simple approximation based on scaling the first wall area.  A similar analysis
+on FNSF used full 3-D models to show similar effects for both penetrations and
+the addition of the test module ports.\citeref{davis_neutronics_2017}
+
+The final configuration for ARIES-ACT-2 was able to meet its breeding
+requirements with a 40\% $^6$Li enrichment, generating a total of 2458 MW of
+recoverable nuclear heating.  The heat removal is divided 49:51 between the He
+and LiPb high temperature coolants, with 50 MW deposited in the VV and LT
+shield, and therefore dumped as low grade heat.  The peak neutron wall loading
+is 2.2 MW/m$^2$, with corresponding peak damage rates of 23
+dpa/FPY.\citeref{el-guebaly_design_2017}
 
 Nuclear analysis also provides the source term for a variety of thermal
 analyses under normal and off-normal conditions.  A 2-D transient thermal
@@ -105,14 +113,32 @@ Finally, detailed activation analysis can provide important insight on
 \glspl{SDR} and ultimate waste management issues.  Detailed 3-D activation
 analysis of ARIES-ACT-1 was used to confirm that the simpler 1-D radial build
 analysis is conservative and over-predicts the activation response by up to
-30\%.  This supports the continued use of 1-D analysis at this stage of
-conceptual design for discussion of waste management.  \gls{SDR} analysis
-inherently requires resolving the 3-D distribution of activation photons.  A
-detailed \gls{SDR} analysis of FNSF is underway using the \gls{R2S} tools
-developed in the previous section, and expected to be completed in summer
-2018.
+30\%.\citeref{el-guebaly_activation_2015} This supports the continued use of 1-D analysis at
+this stage of conceptual design for discussion of waste management.  \gls{SDR}
+analysis inherently requires resolving the 3-D distribution of activation
+photons.  A detailed \gls{SDR} analysis of FNSF is underway using the
+\gls{R2S} tools developed in the previous section, and expected to be
+completed in summer 2018.
+
+\subsection{Liquid Metal Scoping Study}
+
+With interest in liquid metal first walls in the \gls{FNSF} program, a scoping
+study of different liquid metal options was completed.  Different combinations
+of first wall and breeder were assessed, including Cd, Ga, In, Sn, SnLi, Li
+and LiPb.  A number of characteristics were considered, including neutron
+multiplication, tritium breeding, activation, and reduction in damage to the
+first metal layer.  A key result is that damage reduction is only achieved
+with reasonably thick layers of liquid metal.  Thick layers consume valuable
+space for tritium breeding, so such layers should be breeding themselves to
+compensate.  Most promising candidates are Li, LiPb, and Pb.
 
 \subsection{Integrated Electromagnetic and Thermal-Structural Analysis}
+
+\begin{wrapfigure}{R}{0.5\textwidth}
+\centering
+\includegraphics[width=0.48\textwidth]{imgs/elm-thermal.png}
+\caption{\label{fig:elm-thermal}Thermal transient in an all-tungsten plate divertor.}
+\end{wrapfigure}
 
 The objective of this subtask is to provide detailed multi-dimensional
 thermal, mechanical and electromagnetic analysis of specific \glspl{PFC}, thus
@@ -125,12 +151,6 @@ disruption effects.
 
 \subsubsection{Solid Tungsten Surfaces}
 
-\begin{wrapfigure}{R}{0.5\textwidth}
-\centering
-\includegraphics[width=0.48\textwidth]{imgs/elm-thermal.png}
-\caption{\label{fig:elm-thermal}Thermal transient in an all-tungsten plate divertor.}
-\end{wrapfigure}
-
 \paragraph{Thermo-structural behavior.} Transient thermal behavior is
 calculated using commercial finite element codes and temperature-dependent
 properties. The structural behavior is more complicated, as it must account
@@ -141,7 +161,7 @@ Fig.\ \ref{fig:elm-thermal}, providing temperature histories during a single
 these analyses is that all-tungsten \glspl{PFC} are probably viable, but
 \gls{ELM} control is likely required and improved tungsten-based alloys would
 be beneficial. It also identified the importance of thermal creep in these
-designs.
+designs.\citeref{blanchard_thermomechanical_2015}
 
 \paragraph{Electromagnetic effects} Disruptions will induce large loads in
 surrounding structures, as a result of induced currents. We have modeled
@@ -149,7 +169,8 @@ these, again using commercial finite element codes, assuming plasma quench,
 but no plasma motion. Typical results for induced body forces in the key
 structures are shown in Fig.\ \ref{fig:disrupt-em}. The key conclusion here is
 that disruption forces in FNSF appear to be survivable without significant
-damage, though some surface melting is expected from the thermal loads.
+damage, though some surface melting is expected from the thermal
+loads.\citeref{blanchard_effect_2017}
 
 \subsubsection{Liquid Surfaces}
 

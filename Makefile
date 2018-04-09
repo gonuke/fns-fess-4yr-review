@@ -9,27 +9,25 @@ SOURCES = report.tex \
           refs.tex \
           products.tex \
           facilities.tex \
-          refs.bib
+          citations.bib
 
 TIDY=*.lo[fgt] *.toc *.bbl *.blg *.ist *.glo *.aux *.acn *.out
 
-default: no-cite
+default: report.pdf
 
 report.pdf: ${SOURCES}
 	pdflatex report.tex
-	bibtex prod.aux
 	bibtex ref.aux
+	bibtex prod.aux
 	pdflatex report.tex
 	pdflatex report.tex
-	rm -f ${TIDY}
 
 force:
 	pdflatex report.tex
-	bibtex prod.aux
 	bibtex ref.aux
+	bibtex prod.aux
 	pdflatex report.tex
 	pdflatex report.tex
-	rm -f ${TIDY}
 
 no-cite: ${SOURCES}
 	pdflatex report.tex
