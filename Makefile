@@ -6,9 +6,11 @@ SOURCES = report.tex \
           exec.tex \
           budget.tex \
           narrative.tex \
+          narrative/*.tex \
           refs.tex \
           products.tex \
           facilities.tex \
+          personnel.tex \
           citations.bib
 
 TIDY=*.lo[fgt] *.toc *.bbl *.blg *.ist *.glo *.aux *.acn *.out

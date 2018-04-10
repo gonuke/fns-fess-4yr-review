@@ -1,20 +1,19 @@
 \section{Development of Improved Predictive Capability}
 
-The  objective of  this task  is to  provide software  tools that  support the
-detailed  nuclear  design  and  analysis  of fusion  energy  systems,  with  a
-particular focus on detailed geometry representation.  The nuclear performance
-of fusion energy systems is driven by detailed geometric considerations.  Gaps
-and ports in  the \gls{FW/B} system contribute to local  heating and radiation
-damage  in the  vacuum vessel,  magnets and  beyond, while  also reducing  the
-overall  tritium  breeding ratio.   Prior  to  this performance  period,  this
-program supported the development of a unique CAD-based capability for neutron
-and  photon transport  in  fusion  energy systems,  known  as the  \gls{DAGMC}
-toolkit.\citeref{wilson_acceleration_2010}  As  the fundamental  capability  for
-radiation transport is  considered to be well established,  effort during this
-performance  period  focused on  improving  the  computational performance  of
-\gls{DAGMC}, extending  its utility beyond operational  radiation transport to
-include shutdown dose rate assessment, and validation of these methods through
-a new collaboration with EU-JET.
+The objective of this task is to provide software tools that support the
+detailed nuclear design and analysis of fusion energy systems, with a
+particular focus on the detailed geometry considerations that drive the
+nuclear performance of those system.  Gaps and ports in the \gls{FW/B} system
+contribute to local heating and radiation damage in the vacuum vessel, magnets
+and beyond, while also reducing the overall tritium breeding ratio.  Prior to
+this performance period, this program supported the development of a unique
+CAD-based capability for neutron and photon transport in fusion energy
+systems, known as the \gls{DAGMC} toolkit.\citeref{wilson_acceleration_2010}
+As the fundamental capability for radiation transport is considered to be well
+established, effort during this performance period focused on improving the
+computational performance of \gls{DAGMC}, extending its utility beyond
+operational radiation transport to include shutdown dose rate assessment, and
+validation of these methods through a new collaboration with EU-JET.
 
 \subsection{\gls{DAGMC} Performance Improvements}
 
@@ -22,28 +21,28 @@ The objective of this subtask is to improve the computational performance of
 the \gls{DAGMC} toolkit such that its performance is comparable to alternative
 approaches.
 
-Over more than 6 years of both the development of \gls{DAGMC} and its use in
+Over more than 10 years of both the development of \gls{DAGMC} and its use in
 nuclear analysis, its performance has been assessed in various ways.  The
 simplest assessment is to compare the performance of native MCNP using a
 native geometry representation to the performance of DAG-MCNP using CAD
-geometry representation that is derived directly from the native
+geometry representation that is derived directly from the same native
 representation.  \gls{DAGMC} has been measured to be between \textapprox 3x
 and \textapprox 10x slower.  Since such a comparison is only possible when a
-native MCNP geometry representation already exists, this is arguably not the
-ideal use case for \gls{DAGMC}. It is designed to allow analysts to avoid the
-person-months of effort that are required to generate such a complex native
-MCNP representation.  Nevertheless, is is a compelling motivator for
-performance improvements.  Three types of performance improvement have been
-examined and are at different stages of implementation.
+native MCNP geometry representation already exists, and \gls{DAGMC} is
+designed to avoid the person-months of effort required to generate such
+complex native representations, this is arguably not the ideal use case for
+\gls{DAGMC}.  Nevertheless, is is a compelling motivator for performance
+improvements.  Three types of performance improvement have been examined and
+are at different stages of implementation.
 
 \glspl{SDF} seek to improve performance by pre-computing the distance to the
 nearest boundary from a grid of points within a select number of volumes of
-the geometry.  Such a grid can be used during transport to avoid an expensive
-computation of the exact distance to a boundary in any specific direction when
-it is already known that a collision will occur at a distance that is shorter
-than this pre-computed nearest boundary.  If the error in the pre-computed
-distance is well-enough characterized, it can be a reliable way to avoid the
-more expensive tests.
+the geometry.  Interpolation on such a grid can be used during transport to
+avoid an expensive computation of the exact distance to a boundary in any
+specific direction when it is already known that a collision will occur at a
+distance that is shorter than this pre-computed nearest boundary.  If the
+error in the pre-computed distance is well-enough characterized, it can be a
+reliable way to avoid the more expensive tests.
 
 \begin{wrapfigure}{R}{0.5\textwidth}
 \centering
@@ -132,10 +131,11 @@ tetrahedral mesh as well as biasing schemes for efficiently sampling the
 distributed photon source, and has been validated against the primary
 experimental data for this kind of analysis.\citeref{biondo_shutdown_2016}
 
-Two ongoing improvements that began during this period are an extension to
-support moving activated sources during maintenance procedures, and a study of
-the propagation of statistical error/uncertainty through the \gls{R2S}
-workflow.\citeref{harb_effect_2017}
+Ongoing improvements that began during this period are an extension to support
+moving activated sources during maintenance procedures, a study of the
+propagation of statistical error/uncertainty through the \gls{R2S}
+workflow\citeref{harb_effect_2017}, and refinement of the photon source at a
+sub-voxel level.
 
 \subsection{Automated Variance Reduction for \gls{SDR} Analysis}
 

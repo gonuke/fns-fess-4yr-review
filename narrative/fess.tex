@@ -18,7 +18,7 @@ For any toroidal system, a radial build is a one-dimensional description of
 the thickness and composition of each component at the mid-plane of the torus
 that meets the overall design goals, specifically, tritium breeding, nuclear
 energy conversion, and magnet shielding.  Vertical builds incorporate the
-diver tors in this design process.  Rapid turn-around 1-D analysis tools are
+divertors in this design process.  Rapid turn-around 1-D analysis tools are
 used to refine these radial/vertical builds in collaboration with other
 experts to account, primarily, for plasma physics needs.  This radial build
 becomes a major input to the systems codes that describe the overall system
@@ -28,12 +28,6 @@ analysis.
 During this performance period, \gls{UW-FTI} delivered the initial
 radial/vertical builds for ARIES-ACT-2 and \gls{FNSF} that were the basis of
 all subsequent analysis.
-
-\begin{wrapfigure}{R}{0.5\textwidth}
-\centering
-\includegraphics[width=0.48\textwidth]{imgs/aries-act-2-tbr.png}
-\caption{\label{fig:aries-act-2-tbr}Impact of heterogeneity and penetrations on system \gls{TBR}.}
-\end{wrapfigure}
 
 The consideration of a \gls{FNSF} within this performance period introduced
 novel scope to the subtask of primary nuclear design: defining the mission of
@@ -76,6 +70,12 @@ that the damage rates in the inboard structural ring would require replacement
 during the lifetime of the system ($>$200 dpa), but that the both the inboard
 and outboard vacuum vessel would survive the entire lifetime of the machine,
 although the inboard would not be reweldable.\citeref{el-guebaly_neutronics_2015}
+
+\begin{wrapfigure}{R}{0.5\textwidth}
+\centering
+\includegraphics[width=0.48\textwidth]{imgs/aries-act-2-tbr.png}
+\caption{\label{fig:aries-act-2-tbr}Impact of heterogeneity and penetrations on system \gls{TBR}.}
+\end{wrapfigure}
 
 During this reporting period, a new form of 3-D analysis was implemented to
 study the incremental effect of different design elements on the overall
@@ -190,16 +190,16 @@ triangular pulse with a rise time of 1/3 ms and a fall time of 2/3 ms. The peak
 fluxes are as high as 1.1 GW/m$^2$ for an \gls{ELM} on a divertor.
 
 \paragraph{Evaporation.} These thermal results are also used to estimate
-the mass lost in a single \gls{ELM} pulse. A comparison of the evaporated thickness
-for four different liquid metals, assuming an initial temperature of 600K, is
-shown below.
+the mass lost in a single \gls{ELM} pulse. A comparison of the evaporated
+thickness for four different liquid metals, assuming an initial temperature of
+600K and evaporation into a vacuum, results in lost thicknesses of up to 80
+microns for Li with a peak heat flux of 2000 MW/m$^2$.
 
-The above results assume that the liquid divertor evaporates into a vacuum. In
-reality, the situation is much more complicated. One effect that is expected
-is vapor shielding, implying that some fraction of the incoming heat flux will
-be absorbed in the vapor itself, thus preventing it from reaching the
-liquid. This will limit the evaporation possible during a single \gls{ELM}
-pulse. The above plots have not accounted for vapor shielding due to the
+In reality, the situation is much more complicated. One effect that is
+expected is vapor shielding, implying that some fraction of the incoming heat
+flux will be absorbed in the vapor itself, thus preventing it from reaching
+the liquid. This will limit the evaporation possible during a single \gls{ELM}
+pulse. The above results have not accounted for vapor shielding due to the
 uncertainties inherent in the calculation. In this sense, the above results
 are assumed to be “worst-case” results. We have produced results using a
 shielding model akin to transport of the plasma ions through a vapor
@@ -208,14 +208,14 @@ of the plasma, including a simple core model as well as detailed models of the
 edge physics, sheaths, charge exchange, etc. These calculations are
 tentatively planned for the coming quarter.
 
-\paragraph{Boiling. } Given that in some cases, the temperatures shown
-above exceed the tabulated boiling points for lithium and tin, respectively,
-one might be concerned that the mass loss mechanism will be from boiling,
-rather than evaporation. This could lead to significant increases in the mass
-loss. However, tabulated boiling points do not apply to cases where the
-heating is homogeneous and bubbles are nucleated in the bulk. In this case,
-the boiling point is substantially higher. A detailed assessment indicates
-that boiling is not expected in the cases considered above.
+\paragraph{Boiling. } Given that in some cases, the temperatures calculated
+in the above reults exceed the tabulated boiling points for lithium and tin,
+respectively, one might be concerned that the mass loss mechanism will be from
+boiling, rather than evaporation. This could lead to significant increases in
+the mass loss. However, tabulated boiling points do not apply to cases where
+the heating is homogeneous and bubbles are nucleated in the bulk. In this
+case, the boiling point is substantially higher. A detailed assessment
+indicates that boiling is not expected in the cases considered above.
 
 \paragraph{Electromagnetic effects. } Disruptions will induce currents in
 a pool-type divertor and the resulting forces could, in principle, empty the

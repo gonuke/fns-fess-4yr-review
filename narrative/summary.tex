@@ -9,9 +9,24 @@ developments.
 
 This project and its predecessors have been the primary support for the
 development of a leading CAD-based Monte Carlo radiation transport capability
-for the US fusion neutronics community, and, until recently\cite{talamo_serpent_2018},
-the only capability that directly uses high-fidelity CAD-based surface
-representation for MC radiation transport in the world.  Continued performance
-enhancements draw from a wide body of literature in computer graphics, meshing
-and computer science.  Ongoing capability extensions are addressing the
-fundamental needs
+for the US fusion neutronics community, and, until
+recently\citeref{talamo_serpent_2018}, the only capability that directly uses
+high-fidelity CAD-based surface representation for MC radiation transport in
+the world.  Continued performance enhancements draw from a wide body of
+literature in computer graphics, meshing and computer science.  Ongoing
+capability extensions are addressing the fundamental needs of analysts to
+automate the process of performing more complex multi-step analysis, including
+variance reduction schemes to accelerate such simulations.
+
+In addition to performing routine design tasks, novel analyses have been
+pursued during the development of different fusion energy concepts under the
+\gls{FESS} program.  One-dimensional analysis is used to develop a candidate
+radial build that considers a variety of performance metrics, including
+nuclear heating, radiation damage, tritium breeding ratio, and activation.
+This is then translated into a 3-D CAD model for more detailed analysis.
+Recent work had shown that 1-D analysis is conservative for activation, but
+can grossly overestimate the overall \gls{TBR} without accounting for local
+heterogeneities and access ports.  High heat flux components have been
+analyzed for their ability to survive both the thermal and electromagnetic
+shock of various plasma disruptions.  Work is underway to perform similar
+analyses for liquid metal surfaces.

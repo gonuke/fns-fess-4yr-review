@@ -5,3 +5,62 @@
 %% must not exceed one page when printed using standard 8.5” by 11” paper with 1”
 %% margins (top, bottom, left, and right) with font not smaller than 11 point.
 
+The fundamental objective of the \gls{UW-FTI}'s fusion nuclear science and
+engineering program is based upon providing nuclear analysis of fusion energy
+systems, and advancing the tools necessary to perform such analysis.  Decades
+of experience in fusion nuclear analysis have informed the development of a
+suite of approaches for this analysis that span simplified 1-D analysis for
+initial system design scoping to high-fidelity 3-D analysis for detailed
+assessment of system performance.
+
+Software enhancements have improved performance and extended capability.
+\glspl{SDF} can be pre-computed to avoid expensive ray-firing operations, but
+testing has shown that the features that make ray-firing expensive also result
+in fewer ray-firing operations.  Continuing efforts employ low level
+parallelism to further accelerate tree-traversal and generate those trees with
+more fidelity.  Tools are being assembled into robust workflows that
+facilitate \gls{SDR} analysis.  The \gls{R2S} methodology is now available as part of
+the PyNE package, to coordinate the Monte Carlo radiation transport
+simulations with the geometry discretization and activation simulations needed
+to generate the distributed photon source.  Automated variance reduction
+methods are vital for achieving reasonable runtimes for these complex
+problems, and a new methodology was developed to extend the previous
+capability for \gls{SDR} problems. The \gls{SDR} workflow is being benchmarked
+against experimental measurements from JET.
+
+These tools and workflows are being demonstrated by application to the
+analysis/design of candidate fusion energy systems as part of the \gls{FESS},
+giving an opportunity to identify areas for improvement and enhancement.  In
+addition to calculating specific engineering quantities that inform the design
+of each concept, some forms of analysis provide insight into aspects of the
+design of any system.  New 3-D analysis capability has been used to study the
+effects of engineering-scale heterogeneity of the model on the simulated
+\gls{TBR}. This provides insight into the degree of approximation that is
+inherent in the 1-D simulations often used for scoping, and also the penalty
+in tritium breeding that is associated with particular features such as ducts
+and ports in the first wall.  Three-dimensional analysis has been used on
+ARIES-ACT-1 and -2, as well as the \gls{FNSF} to examine the distribution of
+nuclear heating and radiation damage throughout the system.  Ongoing work is
+exploring the impact of liquid metal \glspl{PFC} on the nuclear response of
+the system.
+
+Thermo-structural and electromagnetic analysis have been conducted for both
+normal and off-normal conditions.  An investigation of solid tungsten surfaces
+concluded that all-tungsten \glspl{PFC} are probably viable, but ELM control
+is likely required and improved tungsten-based alloys would be beneficial.
+The structural response to electromagnetic loads induced by a disruption was
+evaluated for the \gls{FNSF}, showing that disruptions appear to be survivable
+without significant damage.  As with the nuclear analysis, understanding the
+thermo-mechanical and electromagnetic responses to liquid metal \glspl{PFC} is
+of current interest, requiring the addition of evaporation and boiling to the
+modeling capability.  Electromagnetic effects can be substantial, depending on
+design specifics, possibly resulting in liquid metals being emptied from their
+trays in the most extreme conditions.
+
+The \gls{UW-FTI} program provides national and international leadership,
+representing the US fusion community in two IEA subcommittees, in the IAEA's
+fusion nuclear data activities, and in the \gls{CSEWG} that oversees the
+revision of the ENDF nuclear data set.  The \gls{UW-FTI} program also educates
+and prepares a robust cohort of new scientists and engineers to ensure
+continuity in this field that is important for fusion energy system design, as
+has been demonstrated in ITER.
